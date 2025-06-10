@@ -32,7 +32,9 @@ const Navbar = () => {
             <Link href="/contact" className="text-gray-800 dark:text-white hover:text-purple-600">
               Contact
             </Link>
+
             <UserButton/>
+            
           </div>
 
           {/* Mobile Menu Toggle */}
@@ -59,7 +61,9 @@ const Navbar = () => {
           <Link href="/contact" className="block text-gray-800 dark:text-white hover:text-purple-600">
             Contact
           </Link>
+
           <UserButton/>
+
         </div>
       )}
     </nav>
