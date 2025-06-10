@@ -48,7 +48,7 @@ const ForumsPage = () => {
       {/* Responsive Grid of Topic Cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         {topics.map((topic) => (
-          <Link href={`/forums/${topic.slug}`} key={topic.slug}>
+          <Link href={`/forum/${topic.slug}`} key={topic.slug}>
             <div className="bg-card p-6 rounded-lg border shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 flex flex-col items-center text-center h-full">
               <Image
                 src={topic.img}

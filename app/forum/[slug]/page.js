@@ -1,7 +1,6 @@
-
 import ChatForum from '@/components/ChatForum';
 
-export default async function Page({ params }) {
-    const { slug } = (await params).slug
-    return <ChatForum slug={slug}/>
+export default function Page({ params }) {
+  console.log("params.slug:", params.slug); // Should log the correct slug
+  return <ChatForum slug={params.slug} />;
 }

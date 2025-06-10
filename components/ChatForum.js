@@ -14,7 +14,7 @@ const user = {
   image: `https://getstream.io/random_png/?name=${userName}`,
 };
 
-const ChatForum = ({slug}) => {
+const ChatForum = ({ slug }) => {
   const [channel, setChannel] = useState();
   const client = useCreateChatClient({
     apiKey,
@@ -23,19 +23,24 @@ const ChatForum = ({slug}) => {
   });
 
   useEffect(() => {
-    if (!client) return;
+    if (!client || !slug) return;
 
     const channel = client.channel('messaging', `chat_${slug}`, {
-    name: 'Private Chat',
-    image: 'https://getstream.io/random_png/?name=react',
-    members: [userId], // ✅ Only one user allowed now
+      name: 'Discussion',
+      image: 'https://getstream.io/random_png/?name=react',
+      members: [userId],
     });
 
+    channel.watch()
+      .then(() => setChannel(channel))
+      .catch((err) => {
+        console.error('Channel creation/fetch failed:', err);
+      });
 
-    setChannel(channel);
-  }, [client]);
+    return () => setChannel(undefined);
+  }, [client, slug]);
 
-  if (!client) return <div className="text-center mt-10">Setting up client & connection...</div>;
+  if (!client || !channel) return <div className="text-center mt-10">Setting up client & connection...</div>;
 
   return (
     <div className="fixed inset-0 bg-white flex items-center justify-center z-50">
@@ -43,15 +48,11 @@ const ChatForum = ({slug}) => {
         <Chat client={client}>
           <Channel channel={channel}>
             <Window>
-              {/* Flex column, full height */}
               <div className="flex flex-col h-full w-full">
-                {/* Header */}
                 <ChannelHeader />
-                {/* MessageList is the only scrollable area */}
                 <div className="flex-1 overflow-y-auto">
                   <MessageList />
                 </div>
-                {/* Input */}
                 <div className="border-t p-2 bg-white">
                   <MessageInput />
                 </div>
