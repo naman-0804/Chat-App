@@ -6,3 +6,8 @@ export default function Home() {
     </main>
   );
 }
+export const metadata = {
+  title: 'We-Chat',
+  description: 'An open sourced chatting application',
+}
+ 

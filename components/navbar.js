@@ -15,7 +15,7 @@ const Navbar = () => {
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <div className="flex items-center">
-            <span className="text-2xl font-bold text-purple-600">MyPortfolio</span>
+            <span className="text-2xl font-bold text-purple-600">We-chat</span>
           </div>
 
           {/* Desktop Menu */}
@@ -34,7 +34,7 @@ const Navbar = () => {
             </Link>
 
             <UserButton/>
-            
+
           </div>
 
           {/* Mobile Menu Toggle */}
