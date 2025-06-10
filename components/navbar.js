@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { Menu, X } from 'lucide-react';
+import { UserButton } from '@clerk/nextjs';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -31,6 +32,7 @@ const Navbar = () => {
             <Link href="/contact" className="text-gray-800 dark:text-white hover:text-purple-600">
               Contact
             </Link>
+            <UserButton/>
           </div>
 
           {/* Mobile Menu Toggle */}
@@ -57,6 +59,7 @@ const Navbar = () => {
           <Link href="/contact" className="block text-gray-800 dark:text-white hover:text-purple-600">
             Contact
           </Link>
+          <UserButton/>
         </div>
       )}
     </nav>
