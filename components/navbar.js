@@ -4,9 +4,12 @@
 
 import Link from 'next/link';
 import { UserButton } from '@clerk/nextjs';
-
+import {useUser} from '@clerk/nextjs'
 const Navbar = () => {
-  return (
+    const user=useUser();
+    console.log(user.user?.id);
+    return (
+
     // The main navigation bar container with styling
     <nav className="bg-background/80 backdrop-blur-sm shadow-md fixed top-0 w-full z-50 border-b">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
