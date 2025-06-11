@@ -1,36 +1,129 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# We-Chat - Real-time Chat Application
 
-## Getting Started
+A modern real-time chat application built with Next.js 14, Stream Chat, and Clerk Authentication. Features both forum-style discussions and direct messaging capabilities.
 
-First, run the development server:
+## 🚀 Features
+
+- **Authentication & User Management**
+  - Secure user authentication via Clerk
+  - User profiles with customizable avatars
+  - Protected routes and API endpoints
+
+- **Chat Capabilities**
+  - Real-time messaging using Stream Chat
+  - Public forum discussions
+  - Direct messaging between users
+  - Thread conversations
+  - Channel/Forum categories:
+    - Python
+    - JavaScript
+    - General Development
+    - We-Chat Feedback
+
+- **Modern UI/UX**
+  - Responsive design using Tailwind CSS
+  - Dark/Light mode support
+  - Real-time typing indicators
+  - Message threads and replies
+  - User presence indicators
+
+## 🛠️ Tech Stack
+
+- **Frontend:**
+  - Next.js 14 (React Framework)
+  - Tailwind CSS (Styling)
+  - Stream Chat React SDK
+  - Lucide React (Icons)
+
+- **Backend:**
+  - Next.js API Routes
+  - Stream Chat Server SDK
+  - Clerk Authentication
+
+- **Authentication:**
+  - Clerk for user management
+  - JWT tokens for Stream Chat
+
+## 🏗️ Architecture
+
+### Authentication Flow
+1. Users sign up/login through Clerk
+2. Upon authentication, a Stream Chat token is generated
+3. Token is stored in Clerk's user metadata
+4. Token is used for real-time chat authentication
+
+### Chat Implementation
+1. **Forums:**
+   - Each forum has a unique channel
+   - Channels are created with the forum slug
+   - Users can join multiple forums
+
+2. **Direct Messages:**
+   - One-to-one messaging capabilities
+   - Real-time message delivery
+   - User presence detection
+
+## 💻 Installation
 
 ```bash
+# Clone the repository
+git clone https://github.com/yourusername/we-chat.git
+
+# Install dependencies
+cd we-chat
+npm install
+
+# Set up environment variables
+cp .env.example .env.local
+
+# Add your credentials
+NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=your_clerk_publishable_key
+CLERK_SECRET_KEY=your_clerk_secret_key
+STREAM_API_KEY=your_stream_api_key
+STREAM_API_SECRET=your_stream_secret_key
+
+# Run the development server
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🔧 Configuration
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+### Clerk Setup
+1. Create a Clerk application
+2. Add authentication credentials to `.env.local`
+3. Configure Clerk webhooks (if needed)
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### Stream Chat Setup
+1. Create a Stream Chat application
+2. Add API credentials to `.env.local`
+3. Configure chat permissions and roles
 
-## Learn More
+## 📝 API Routes
 
-To learn more about Next.js, take a look at the following resources:
+- `/api/create` - Creates user tokens and initializes channels
+- Additional API routes for chat management
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 📚 Project Structure
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```
+we-chat/
+├── app/
+│   ├── api/
+│   ├── chat/
+│   ├── forum/
+│   ├── forums/
+│   └── layout.js
+├── components/
+│   ├── ChatForum.js
+│   ├── DirectChat.js
+│   └── Navbar.js
+└── public/
+```
 
-## Deploy on Vercel
+## 🤝 Contributing
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Contributions are welcome! Please feel free to submit a Pull Request.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 📄 License
+
+This project is licensed under the MIT License.
