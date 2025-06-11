@@ -1,21 +1,23 @@
-"use client";
-import { useState, useEffect } from 'react';
+'use client';
+
+import React, { useState, useEffect } from 'react';
 import { useCreateChatClient, Chat, Channel, ChannelHeader, MessageInput, MessageList, Thread, Window } from 'stream-chat-react';
 import 'stream-chat-react/dist/css/v2/index.css';
 
-const apiKey = 'n5kgyjq4t3at';
-const userId = 'user_2yJJtj357KGbLdELpvPJjBiGGTb';
-const userName = 'Naman';
-const userToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoidXNlcl8yeUpKdGozNTdLR2JMZEVMcHZQSmpCaUdHVGIifQ.kPo3utOmcz0AmFwwUDO4NixjzLcGuu5Y4SN586T32qg';
+const ChatForum = ({ clerkUser, slug }) => {
+  const apiKey = 'n5kgyjq4t3at';
+  const userId = clerkUser.id;
+  const userName = clerkUser.name;
+  const userToken = clerkUser.token;
 
-const user = {
-  id: userId,
-  name: userName,
-  image: `https://getstream.io/random_png/?name=${userName}`,
-};
+  const user = {
+    id: userId,
+    name: userName,
+    image: `https://getstream.io/random_png/?name=${userName}`,
+  };
 
-const ChatForum = ({ slug }) => {
-  const [channel, setChannel] = useState();
+  const [channel, setChannel] = useState(null);
+
   const client = useCreateChatClient({
     apiKey,
     tokenOrProvider: userToken,
@@ -23,46 +25,35 @@ const ChatForum = ({ slug }) => {
   });
 
   useEffect(() => {
-    if (!client || !slug) return;
+    if (!client) return;
 
-    const channel = client.channel('messaging', `chat_${slug}`, {
-      name: 'Discussion',
-      image: 'https://getstream.io/random_png/?name=react',
-      members: [userId],
-    });
-
-    channel.watch()
-      .then(() => setChannel(channel))
-      .catch((err) => {
-        console.error('Channel creation/fetch failed:', err);
+    const setupChannel = async () => {
+      const newChannel = client.channel('messaging', slug, {
+        image: `https://getstream.io/random_png/?name=${slug}`,
+        name: `${slug.toUpperCase()} Discussion`,
+        members: [userId],
       });
 
-    return () => setChannel(undefined);
-  }, [client, slug]);
+      await newChannel.watch();
+      setChannel(newChannel);
+    };
 
-  if (!client || !channel) return <div className="text-center mt-10">Setting up client & connection...</div>;
+    setupChannel();
+  }, [client, slug, userId]);
+
+  if (!client || !channel) return <div>Setting up client & connection...</div>;
 
   return (
-    <div className="fixed inset-0 bg-white flex items-center justify-center z-50">
-      <div className="w-full h-full max-w-7xl mx-auto flex flex-col">
-        <Chat client={client}>
-          <Channel channel={channel}>
-            <Window>
-              <div className="flex flex-col h-full w-full">
-                <ChannelHeader />
-                <div className="flex-1 overflow-y-auto">
-                  <MessageList />
-                </div>
-                <div className="border-t p-2 bg-white">
-                  <MessageInput />
-                </div>
-              </div>
-            </Window>
-            <Thread />
-          </Channel>
-        </Chat>
-      </div>
-    </div>
+    <Chat client={client}>
+      <Channel channel={channel}>
+        <Window>
+          <ChannelHeader />
+          <MessageList />
+          <MessageInput />
+        </Window>
+        <Thread />
+      </Channel>
+    </Chat>
   );
 };
 

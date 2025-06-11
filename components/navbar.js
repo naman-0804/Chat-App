@@ -4,10 +4,10 @@
 
 import Link from 'next/link';
 import { UserButton } from '@clerk/nextjs';
-import {useUser} from '@clerk/nextjs'
+//import {useUser} from '@clerk/nextjs'
 const Navbar = () => {
-    const user=useUser();
-    console.log(user.user?.id);
+   // const user=useUser();
+   // console.log(user.user?.firstName);
     return (
 
     // The main navigation bar container with styling

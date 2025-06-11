@@ -1,6 +1,8 @@
 import ChatForum from '@/components/ChatForum';
+import { currentUser } from '@clerk/nextjs/server';
 
-export default function Page({ params }) {
-  console.log("params.slug:", params.slug); // Should log the correct slug
-  return <ChatForum slug={params.slug} />;
+export default async function Page({ params }) {
+  const user = await currentUser()
+  const slug = (await params).slug;
+  return <ChatForum slug={slug} clerkUser={{id:user.id,name:user.firstName,token:user.publicMetadata.token}} />;
 }
