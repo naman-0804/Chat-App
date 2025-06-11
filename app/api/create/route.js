@@ -11,10 +11,25 @@ export async function POST(request) {
     const token = server_client.createToken(user.data.id) //user id taken dyanmaicaly
     console.log("A new user ", token)
     const client = await clerkClient()
+    await server_client.upsertUser({
+        id: user.data.id,
+        role: 'admin'
+    })
     await client.users.updateUserMetadata(user.data.id, {
         publicMetadata: {
             token: token
         },
     })
-    return Response.json({ message: 'Hello World' })
+    //give access to this user chat for all
+    const slugs = ["python-chat", "javascript-chat", "general-development-chat", "feedback"];
+    slugs.forEach(async(item)=>{
+        const channel = server_client.channel("messaging", item, {
+            image: `https://getstream.io/random_png/?name=${item}`,
+            name: `${item.toUpperCase()} Discussion`,
+            created_by_id:user.data.id
+        });
+        await channel.create();
+        await channel.addMembers([user.data.id]);
+    })
+    return Response.json({ token });
 }
