@@ -101,21 +101,19 @@ npm run dev
 ## 📝 API Routes
 
 - `/api/create` - Creates user tokens and initializes channels
-- Additional API routes for chat management
 
 ## 📚 Project Structure
 
 ```
 we-chat/
 ├── app/
-│   ├── api/
+│   ├── api/create
 │   ├── chat/
-│   ├── forum/
+│   ├── forum/[slug]
 │   ├── forums/
 │   └── layout.js
 ├── components/
 │   ├── ChatForum.js
-│   ├── DirectChat.js
 │   └── Navbar.js
 └── public/
 ```
